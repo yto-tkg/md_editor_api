@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table(name = Markdown.TABLE_NAME)
@@ -21,6 +22,6 @@ public class Markdown {
     private Long id;
     private String title;
     private String body;
-    private LocalDate createdAt;
-    private LocalDate updatedAte;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAte;
 }
