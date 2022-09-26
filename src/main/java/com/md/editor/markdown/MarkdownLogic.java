@@ -1,5 +1,7 @@
 package com.md.editor.markdown;
 
+import java.util.List;
+
 public interface MarkdownLogic {
 
     /**
@@ -9,5 +11,12 @@ public interface MarkdownLogic {
      * @return id
      */
     long insert(MarkdownDto dto);
+
+    /**
+     * データを全取得する。
+     *
+     * @return
+     */
+    List<MarkdownDto> getAll();
 }
 
