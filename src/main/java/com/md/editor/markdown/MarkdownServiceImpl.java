@@ -23,7 +23,7 @@ public class MarkdownServiceImpl implements MarkdownService {
     public ListOutputForm getAll() {
         List<MarkdownDto> markdownDtoList = markdownLogic.getAll();
         ListOutputForm listOutputForm = new ListOutputForm();
-        listOutputForm.setMarkdownDtoList(markdownDtoList);
+        listOutputForm.setData(markdownDtoList);
         return listOutputForm;
     }
 }
