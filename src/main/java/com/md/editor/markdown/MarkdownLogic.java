@@ -15,8 +15,11 @@ public interface MarkdownLogic {
     /**
      * データを全取得する。
      *
+     * @param sort
+     * @param offset
+     * @param size
      * @return
      */
-    List<MarkdownDto> getAll();
+    List<MarkdownDto> getAll(ListOrderKey sort, String order, int offset, int size);
 }
 

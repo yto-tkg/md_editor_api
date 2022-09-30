@@ -16,8 +16,11 @@ public interface MarkdownService {
     /**
      * データを全取得する。
      *
+     * @param sort
+     * @param offset
+     * @param size
      * @return
      */
-    ListOutputForm getAll();
+    ListOutputForm getAll(ListOrderKey sort, String order, int offset, int size);
 }
 

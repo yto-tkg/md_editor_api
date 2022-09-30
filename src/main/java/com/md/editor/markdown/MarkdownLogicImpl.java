@@ -20,8 +20,8 @@ public class MarkdownLogicImpl implements MarkdownLogic {
     }
 
     @Override
-    public List<MarkdownDto> getAll() {
-        List<Markdown> markdownList = markdownRepository.getAll();
+    public List<MarkdownDto> getAll(ListOrderKey sort, String order, int offset, int size) {
+        List<Markdown> markdownList = markdownRepository.getAll(sort, order, offset, size);
         return markdownDxo.entityListToDtoList(markdownList);
     }
 }
