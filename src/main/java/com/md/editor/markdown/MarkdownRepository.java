@@ -2,6 +2,7 @@ package com.md.editor.markdown;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -56,22 +57,21 @@ public class MarkdownRepository {
      * 全件取得処理
      * @return
      */
-    public List<Markdown> getAll() throws DataAccessException {
-        String sql = ""
-                + "SELECT *"
-                + "FROM markdown";
+    public List<Markdown> getAll(ListOrderKey sort, String order, int offset, int size) throws DataAccessException {
+        String sql;
+        if (order.equals("desc")) {
+            sql = String
+                    .format("SELECT * FROM markdown ORDER BY %s DESC LIMIT ?, ?",
+                            sort.getColumnName());
+        } else {
+            sql = String
+                    .format("SELECT * FROM markdown ORDER BY %s ASC LIMIT ?, ?",
+                            sort.getColumnName());
+        }
 
-        List<Markdown> markdownList = jdbcTemplate.query(sql, new RowMapper<Markdown>() {
-            public Markdown mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Markdown markdown = new Markdown();
-                markdown.setId(Long.valueOf(rs.getString("id")));
-                markdown.setTitle(rs.getString("title"));
-                markdown.setBody(rs.getString("body"));
-                markdown.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-                markdown.setUpdatedAte(rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null);
-                return markdown;
-            }
-        });
-        return markdownList;
+
+
+        RowMapper<Markdown> rowMapper = new BeanPropertyRowMapper<Markdown>(Markdown.class);
+        return jdbcTemplate.query(sql, rowMapper, offset, size);
     }
 }

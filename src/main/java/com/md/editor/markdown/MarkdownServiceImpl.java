@@ -20,8 +20,8 @@ public class MarkdownServiceImpl implements MarkdownService {
     }
 
     @Override
-    public ListOutputForm getAll() {
-        List<MarkdownDto> markdownDtoList = markdownLogic.getAll();
+    public ListOutputForm getAll(ListOrderKey sort, String order, int offset, int size) {
+        List<MarkdownDto> markdownDtoList = markdownLogic.getAll(sort, order, offset, size);
         ListOutputForm listOutputForm = new ListOutputForm();
         listOutputForm.setData(markdownDtoList);
         return listOutputForm;
