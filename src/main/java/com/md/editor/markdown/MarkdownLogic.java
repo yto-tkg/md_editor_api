@@ -13,13 +13,14 @@ public interface MarkdownLogic {
     long insert(MarkdownDto dto);
 
     /**
-     * データを全取得する。
+     * データリストを取得する。
      *
+     * @param title
      * @param sort
      * @param offset
      * @param size
      * @return
      */
-    List<MarkdownDto> getAll(ListOrderKey sort, String order, int offset, int size);
+    List<MarkdownDto> getList(String title, ListOrderKey sort, OrderType order, int offset, int size);
 }
 

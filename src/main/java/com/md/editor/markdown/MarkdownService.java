@@ -14,13 +14,14 @@ public interface MarkdownService {
     long add(PostInputForm inputForm);
 
     /**
-     * データを全取得する。
+     * データリストを取得する。
      *
+     * @param title
      * @param sort
      * @param offset
      * @param size
      * @return
      */
-    ListOutputForm getAll(ListOrderKey sort, String order, int offset, int size);
+    ListOutputForm getList(String title, ListOrderKey sort, OrderType order, int offset, int size);
 }
 
