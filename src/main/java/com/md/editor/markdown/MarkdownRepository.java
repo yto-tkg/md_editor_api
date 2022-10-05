@@ -1,5 +1,6 @@
 package com.md.editor.markdown;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,11 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -54,24 +51,27 @@ public class MarkdownRepository {
     }
 
     /**
-     * 全件取得処理
+     * リスト取得処理
      * @return
      */
-    public List<Markdown> getAll(ListOrderKey sort, String order, int offset, int size) throws DataAccessException {
+    public List<Markdown> getList(String title, ListOrderKey sort, OrderType order, int offset, int size) throws DataAccessException {
         String sql;
-        if (order.equals("desc")) {
+        Object[] args;
+        if (StringUtils.isNotBlank(title)) {
             sql = String
-                    .format("SELECT * FROM markdown ORDER BY %s DESC LIMIT ?, ?",
-                            sort.getColumnName());
+                    .format("SELECT * FROM markdown WHERE title LIKE ? ORDER BY %s %s LIMIT ?, ?",
+                            sort.getColumnName(), order.getColumnName());
+            args = new Object[]{"%" + title + "%", offset, size};
         } else {
             sql = String
-                    .format("SELECT * FROM markdown ORDER BY %s ASC LIMIT ?, ?",
-                            sort.getColumnName());
+                    .format("SELECT * FROM markdown ORDER BY %s %s LIMIT ?, ?",
+                            sort.getColumnName(), order.getColumnName());
+            args = new Object[]{offset, size};
         }
 
 
 
         RowMapper<Markdown> rowMapper = new BeanPropertyRowMapper<Markdown>(Markdown.class);
-        return jdbcTemplate.query(sql, rowMapper, offset, size);
+        return jdbcTemplate.query(sql, rowMapper, args);
     }
 }

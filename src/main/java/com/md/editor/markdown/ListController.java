@@ -17,15 +17,18 @@ public class ListController {
     private final MarkdownService markdownService;
 
     @RequestMapping(value = "/markdown/list.json", method = RequestMethod.GET)
-    public ListOutputForm run(@NotBlank @RequestParam(value = "sort") String sort
+    public ListOutputForm run(@RequestParam(value = "title", required = false) String title
+                              ,@NotBlank @RequestParam(value = "sort") String sort
                               , @NotBlank @RequestParam(value = "order") String order
                               , @NotBlank @Min(0) @RequestParam(value = "offset") int offset
                               , @NotBlank @Min(0) @Max (100) @RequestParam(value = "size") int size) {
 
 
         ListOrderKey orderKey = ListOrderKey
-                .valueOf(StringUtils.defaultString(sort, ListOrderKey.ID.name()));
-        ListOutputForm all = markdownService.getAll(orderKey, order, offset, size);
+                .valueOf(StringUtils.defaultString(sort.toUpperCase(), ListOrderKey.ID.name()));
+        OrderType orderType = OrderType.valueOf(StringUtils.defaultString(order.toUpperCase(), OrderType.ASC.name()));
+
+        ListOutputForm all = markdownService.getList(title, orderKey, orderType, offset, size);
         return all;
     }
 }
