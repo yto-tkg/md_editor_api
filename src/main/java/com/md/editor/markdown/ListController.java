@@ -25,8 +25,8 @@ public class ListController {
 
 
         ListOrderKey orderKey = ListOrderKey
-                .valueOf(StringUtils.defaultString(sort, ListOrderKey.ID.name()));
-        OrderType orderType = OrderType.valueOf(StringUtils.defaultString(order, OrderType.ASC.name()));
+                .valueOf(StringUtils.defaultString(sort.toUpperCase(), ListOrderKey.ID.name()));
+        OrderType orderType = OrderType.valueOf(StringUtils.defaultString(order.toUpperCase(), OrderType.ASC.name()));
 
         ListOutputForm all = markdownService.getList(title, orderKey, orderType, offset, size);
         return all;
