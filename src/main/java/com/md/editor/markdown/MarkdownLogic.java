@@ -22,5 +22,13 @@ public interface MarkdownLogic {
      * @return
      */
     List<MarkdownDto> getList(String title, ListOrderKey sort, OrderType order, int offset, int size);
+
+    /**
+     * IDからデータ情報を取得する
+     *
+     * @param id
+     * @return
+     */
+    MarkdownDto get(long id);
 }
 

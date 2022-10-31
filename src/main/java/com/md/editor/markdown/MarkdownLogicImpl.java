@@ -24,4 +24,10 @@ public class MarkdownLogicImpl implements MarkdownLogic {
         List<Markdown> markdownList = markdownRepository.getList(title, sort, order, offset, size);
         return markdownDxo.entityListToDtoList(markdownList);
     }
+
+    @Override
+    public MarkdownDto get(long id) {
+        Markdown markdown = markdownRepository.get(id);
+        return markdownDxo.entityToDto(markdown);
+    }
 }

@@ -2,6 +2,7 @@ package com.md.editor.markdown;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.error.Mark;
 
 import java.util.List;
 
@@ -25,5 +26,11 @@ public class MarkdownServiceImpl implements MarkdownService {
         ListOutputForm listOutputForm = new ListOutputForm();
         listOutputForm.setData(markdownDtoList);
         return listOutputForm;
+    }
+
+    @Override
+    public GetOutputForm get(long id) {
+        MarkdownDto markdownDto = markdownLogic.get(id);
+        return markdownDxo.getDtoToGetOutputForm(markdownDto);
     }
 }
