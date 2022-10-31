@@ -23,5 +23,13 @@ public interface MarkdownService {
      * @return
      */
     ListOutputForm getList(String title, ListOrderKey sort, OrderType order, int offset, int size);
+
+    /**
+     * IDからデータ情報を取得する
+     *
+     * @param id
+     * @return
+     */
+    GetOutputForm get(long id);
 }
 

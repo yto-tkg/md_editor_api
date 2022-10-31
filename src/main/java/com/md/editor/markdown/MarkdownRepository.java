@@ -74,4 +74,15 @@ public class MarkdownRepository {
         RowMapper<Markdown> rowMapper = new BeanPropertyRowMapper<Markdown>(Markdown.class);
         return jdbcTemplate.query(sql, rowMapper, args);
     }
+
+    /**
+     * 詳細情報取得処理
+     * @return
+     */
+    public Markdown get(long id) throws DataAccessException {
+        String sql = String
+                .format("SELECT * FROM markdown WHERE id = ?");
+        RowMapper rowMapper = new BeanPropertyRowMapper(Markdown.class);
+        return (Markdown) jdbcTemplate.queryForObject(sql, rowMapper, id);
+    }
 }
