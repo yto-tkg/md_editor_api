@@ -13,6 +13,13 @@ public interface MarkdownLogic {
     long insert(MarkdownDto dto);
 
     /**
+     * データを更新する。
+     *
+     * @param dto
+     */
+    void update(MarkdownDto dto);
+
+    /**
      * データリストを取得する。
      *
      * @param title

@@ -16,5 +16,7 @@ public interface MarkdownDxo {
 
     MarkdownDto inputFormToDto(PostInputForm form);
 
+    MarkdownDto putInputFormToDto(PutInputForm form);
+
     GetOutputForm getDtoToGetOutputForm(MarkdownDto dto);
 }

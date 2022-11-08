@@ -51,6 +51,29 @@ public class MarkdownRepository {
     }
 
     /**
+     * 更新処理
+     * @param entity
+     * @return
+     */
+    public void update(Markdown entity) throws DataAccessException {
+        String sql = ""
+                + "UPDATE markdown"
+                + " SET title = ?, body = ?, updated_at = NOW()"
+                + " WHERE id = ?";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+                    .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, entity.getTitle());
+            ps.setString(2, entity.getBody());
+            ps.setLong(3, entity.getId());
+            return ps;
+        }, keyHolder);
+    }
+
+    /**
      * リスト取得処理
      * @return
      */

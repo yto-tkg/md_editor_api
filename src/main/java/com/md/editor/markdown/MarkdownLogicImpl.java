@@ -20,6 +20,12 @@ public class MarkdownLogicImpl implements MarkdownLogic {
     }
 
     @Override
+    public void update(MarkdownDto dto) {
+        Markdown entity = markdownDxo.dtoToEntity(dto);
+        markdownRepository.update(entity);
+    }
+
+    @Override
     public List<MarkdownDto> getList(String title, ListOrderKey sort, OrderType order, int offset, int size) {
         List<Markdown> markdownList = markdownRepository.getList(title, sort, order, offset, size);
         return markdownDxo.entityListToDtoList(markdownList);
