@@ -14,6 +14,13 @@ public interface MarkdownService {
     long add(PostInputForm inputForm);
 
     /**
+     * データを更新する。
+     *
+     * @param inputForm
+     */
+    void update(PutInputForm inputForm);
+
+    /**
      * データリストを取得する。
      *
      * @param title
